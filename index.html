@@ -1,0 +1,61 @@
+<!doctype html>
+<html ng-app="app">
+	<head>
+		<meta charset='utf-8'>
+		<title>Stash Mob</title>
+		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+		<meta name='description' content='Boilerplate for mobile - Offline capable apps.'>
+		<meta name='viewport' content='width=device-width, initial-scale=1'>
+		<link rel='canonical' href='https://the.atfiliate.com/'>
+		<link rel='manifest' href='offline.json'>
+		<meta name='mobile-web-app-capable' content='yes'>
+		<meta name='apple-mobile-web-app-capable' content='yes'>
+		<meta name='application-name' content='Mobile Ninja'>
+		<meta name='apple-mobile-web-app-status-bar-style' content='black'>
+		<meta name='apple-mobile-web-app-title' content='Mobile Ninja'>
+		<!--<link rel='icon sizes=192x192' href='/images/touch/Airhorner_192.png'>-->
+		<!--<link rel='apple-touch-icon' href='/images/touch/Airhorner_192.png'>-->
+		<!--<meta name='msapplication-TileImage' content='/images/touch/Airhorner_144.png'>-->
+		<meta name='msapplication-TileColor' content='#2196F3'>
+		<meta name='theme-color' content='#2196F3'>
+		<!--<meta property='og:title' content='Air Horn'>-->
+		<!--<meta property='og:type' content='website'>-->
+		<!--<meta property='og:image' content='https://airhorner.com/images/touch/Airhorner_192.png'>-->
+		<!--<meta property='og:url' content='https://airhorner.com/'>-->
+		<!--<meta property='og:description' content='The best and easiest Air Horn web app there is. No install just use it right away in your browser!'>-->
+		<!--<meta name='twitter:card' content='summary'>-->
+		<!--<meta name='twitter:url' content='https://airhorner.com/'>-->
+		<!--<meta name='twitter:title' content='Air Horn'>-->
+		<!--<meta name='twitter:description' content='The best and easiest Air Horn web app there is. No install just use it right away in your browser!'>-->
+		<!--<meta name='twitter:image' content='https://airhorner.com/images/touch/Airhorner_192.png'>-->
+		<!--<meta name='twitter:creator' content='@paul_kinlan'>-->
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.css">
+		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+		<link rel='stylesheet' href='offline.css'>
+		
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
+		
+		<script src="//apis.google.com/js/api.js"></script>
+		<script src="//www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/angularFire/2.3.0/angularfire.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe3fZeajSlL67pzpdd8DGl0f42VXME4A0"></script>
+    	<script src="offline_js"></script>
+	</head>
+	<body ng-model="SiteCtrl" ng-controller="SiteCtrl">
+		<div layout="column">
+			<md-toolbar class="md-primary">
+				<div class="md-toolbar-tools">
+					<h2 class="md-flex"><a ng-href="#!/home">Stash Mob</a></h2>
+				</div>
+			</md-toolbar>
+			<md-content flex ng-include="tools.view()"></md-content>
+		</div>
+	</body>
+</html>

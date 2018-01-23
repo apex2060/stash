@@ -1,0 +1,49 @@
+<div id="locations" ng-controller="LocCtrl" layout="column" ng-init="js.locations.init()">
+	<!--<h3 layout-padding style="text-transform: capitalize;">{{params.id}}</h3>-->
+
+	<div class="list-item" layout="column" md-whiteframe="4" ng-repeat="loc in locations">
+		<div layout="row">
+			<img cl-src="{{loc.img.img_url}}" transform_w="100" transform_h="100">
+			<div class="md-list-item-text" layout="column">
+				<h3>{{loc.title}}</h3>
+				<h4>{{loc.description}}</h4>
+				<a ng-href="#!/location/{{loc._id}}">Learn More &gt;</a>
+			</div>
+		</div>
+		<div class="footer">
+			<p>{{loc.address.street}}</p>
+			<span>1.9mi</span>|<span><i class="fa fa-rocket"></i> <a ng-href="#!/location/{{loc._id}}">Get Directions</a></span>
+			<div class="favorite"><i class="fa fa-heart-o"></i></div>
+		</div>
+	</div>
+	
+	<!--<div>-->
+	<!--	<div id="map" style="width:100%; height:25vh;"></div>-->
+	<!--</div>-->
+	
+	<md-fab-speed-dial md-direction="up" class="main-fab md-scale">
+		<md-fab-trigger>
+			<md-button aria-label="menu" class="md-fab md-accent md-hue-2">
+				<i class="fa fa-bars"></i>
+			</md-button>
+		</md-fab-trigger>
+		
+		<md-fab-actions>
+			<md-button aria-label="Home" class="md-fab md-raised md-mini" ng-href="#!/home">
+				<i class="fa fa-home"></i>
+			</md-button>
+			<md-button aria-label="Shop" class="md-fab md-raised md-mini" ng-href="#!/locations/retail">
+				<i class="fa fa-building"></i>
+			</md-button>
+			<md-button aria-label="Eat" class="md-fab md-raised md-mini" ng-href="#!/locations/restaurant">
+				<i class="fa fa-cutlery"></i>
+			</md-button>
+			<md-button aria-label="Activities" class="md-fab md-raised md-mini" ng-href="#!/locations/activities">
+				<i class="fa fa-ticket"></i>
+			</md-button>
+			<md-button aria-label="Services" class="md-fab md-raised md-mini" ng-href="#!/locations/services">
+				<i class="fa fa-sticky-note"></i>
+			</md-button>
+		</md-fab-actions>
+	</md-fab-speed-dial>
+</div>

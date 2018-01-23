@@ -1,0 +1,61 @@
+<style>
+	.location{
+		text-align: center;
+	}
+	.location>div{
+		position: relative;
+	}
+	.location>div>h3{
+		position: absolute;
+		bottom: 0px;
+		background: #d36cd7aa;
+		display: block;
+		width: 100%;
+		padding: 5px;
+		margin: 0px;
+		color: #fff;
+	}
+	.slogan{
+		background: #00bcd4;
+		color: #FFF;
+	}
+	.description{
+	}
+	.md-block{
+		width: 80%;
+		margin:  0px 10%;
+	}
+	.layout-padding hr{
+		padding:0px;
+		margin: 32px 0px;
+	}
+</style>
+<div ng-controller="LocCtrl" layout="column" ng-init="js.loc.init()">
+	<div class="location">
+		<div style="width: 100%; height: 25vh; overflow: hidden;">
+			<img ng-src="{{loc.img.secure_url}}" style="width: 100%;">
+			<h3>{{loc.title}}</h3>
+		</div>
+		<div class="slogan" layout-padding>
+			Some long  slogan that helps you decide to visit our store.
+		</div>
+		<div class="description" layout-padding>
+			Some long description that helps you decide to visit our store.
+			<hr>
+		</div>
+		<div layout-margin layout-padding>
+			<p><b>Phone:</b> <a href="tel:{{loc.phone}}">{{loc.phone}}</a></p>
+			<md-button class="md-block md-raised md-primary" ng-href="map">View Offers</md-button>
+		</div>
+	</div>
+	
+	<!--This links to navigation directions in the google maps app.-->
+	<!--<md-button aria-label="directions" class="main-fab md-fab md-accent md-hue-2 md-button md-ink-ripple" ng-href="https://www.google.com/maps/dir/?api=1&destination={{loc.geo.latitude}},{{loc.geo.longitude}}" target="_blank">-->
+	<!--	<i class="fa fa-compass"></i>-->
+	<!--</md-button>-->
+	
+	<!--This links to an inline map-->
+	<md-button aria-label="directions" class="main-fab md-fab md-accent md-hue-2 md-button md-ink-ripple" ng-href="#!/directions/{{loc._id}}">
+		<i class="fa fa-compass"></i>
+	</md-button>
+</div>
