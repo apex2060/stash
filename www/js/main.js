@@ -22,13 +22,13 @@ app.config(function($mdThemingProvider, $locationProvider, $routeProvider){
 	.when('/:view', {
 		controller: 'SiteCtrl',
 		templateUrl: function($routeParams){
-			return $routeParams.view;
+			return 'views/'+$routeParams.view+'.html';
 		}
 	})
 	.when('/:view/:id', {
 		controller: 'SiteCtrl',
 		templateUrl: function($routeParams){
-			return $routeParams.view;
+			return 'views/'+$routeParams.view+'.html';
 		}
 	})
 	.otherwise({
