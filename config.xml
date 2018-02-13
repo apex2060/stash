@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ionicframework.ionicmaterialdesign392344" version="0.0.1" xmlns="http://www.w3.org/ns/widgets"
         xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>IonicMaterialDesign</name>
+  <name>Stash Mob</name>
   <description>
-    An Ionic Framework and Cordova project.
+    The best way to explore, shop, and get things done.
   </description>
-  <author email="ionicmaterialdesign@gmail.com" href="http://ionicframework.com/">
-    Ionic Up Team
+  <author email="admin@atfiliate.com" href="https://the.atfiliate.com/">
+    Atfiliate LLC
   </author>
   <content src="index.html"/>
   <allow-navigation href="tel:*" />
