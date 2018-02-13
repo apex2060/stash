@@ -421,6 +421,7 @@ app.controller('HomeCtrl', function HomeCtrl($rootScope, $scope, $http, config, 
 			$scope.message = 'Welcome to the past.'
 		},
 		map: function(){
+			alert('map')
 			var map;
 			document.addEventListener("deviceready", function() {
 				var div = document.getElementById("map_canvas");
