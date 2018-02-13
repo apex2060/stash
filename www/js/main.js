@@ -32,25 +32,25 @@ app.config(function($mdThemingProvider, $locationProvider, $routeProvider){
 		}
 	})
 	.otherwise({
-		redirectTo: '/app-home'
+		redirectTo: '/home'
 	});
 })
 
 app.factory('config', function(){
 	var config = {
-		host: 'https://my.overturelearning.com',
+		host: 'https://app.stashmob.com',
 		clientId: '',
 		firebase: {
-			apiKey: "AIzaSyDkR76SPKz5ZwwE6E5dTqZsznqIvotD2hg",
-			authDomain: "overturelearning.firebaseapp.com",
-			databaseURL: "https://overturelearning.firebaseio.com",
-			projectId: "overturelearning",
-			storageBucket: "overturelearning.appspot.com",
-			messagingSenderId: "265843150239"
+			apiKey: "AIzaSyArptSeFJqZ9DHfRPaYhM4Zqm-wotfFt_A",
+			authDomain: "stashmob-16f57.firebaseapp.com",
+			databaseURL: "https://stashmob-16f57.firebaseio.com",
+			projectId: "stashmob-16f57",
+			storageBucket: "stashmob-16f57.appspot.com",
+			messagingSenderId: "738604374084"
 		},
 		stripe: 			'',
 		cloudinary: {
-			cloudName:		'overturelearning',
+			cloudName:		'stashmob-co',
 			uploadPreset:	'mainSite'
 		}
 	}
