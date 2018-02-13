@@ -16,8 +16,8 @@ var app = angular.module('app', ['ngMaterial','firebase','ngRoute'])
 app.config(function($mdThemingProvider, $locationProvider, $routeProvider){
 	$locationProvider.hashPrefix('');
 	$mdThemingProvider.theme('default')
-	.primaryPalette('teal')
-	.accentPalette('grey');
+	.primaryPalette('pink')
+	.accentPalette('blue');
 	$routeProvider
 	.when('/:view', {
 		controller: 'SiteCtrl',

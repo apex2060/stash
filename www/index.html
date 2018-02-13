@@ -16,7 +16,7 @@
 		<meta name='msapplication-TileColor' content='#2196F3'>
 		<meta name='theme-color' content='#2196F3'>
 		<link rel="stylesheet" href="lib/angular/material.css">
-		<link rel="stylesheet" href="lib/font-awesome.css">
+		<link rel="stylesheet" href="lib/fa/css/fontawesome-all.css">
 		<link rel='stylesheet' href="css/main.css">
 		
 		<script src="lib/jquery.js"></script>
@@ -42,7 +42,7 @@
 			<div class="md-toolbar-tools">
 				<h2 flex><a ng-href="#/app-home">Stash Mob</a></h2>
 				<md-button ng-hide="user" aria-label="menu" class="md-icon-button" ng-click="auth.login('Google')">
-					<i class="fa fa-id-card-o"></i>
+					<i class="fas fa-address-card"></i>
 				</md-button>
 				<md-menu ng-show="user">
 					<a class="thumbnail" ng-click="$mdMenu.open()">
@@ -51,17 +51,17 @@
 					<md-menu-content width="4">
 						<md-menu-item>
 							<md-button ng-href="#/app-notebook">
-								<i class="fa fa-pencil-square-o"></i> Notebook
+								<i class="fas fa-pen-square"></i> Notebook
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
 							<md-button ng-href="#/app-receipts">
-								<i class="fa fa-money"></i> Receipts
+								<i class="fas fa-dollar-sign"></i> Receipts
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
 							<md-button ng-href="#/app-settings">
-								<i class="fa fa-cogs"></i> Settings
+								<i class="fas fa-cogs"></i> Settings
 							</md-button>
 						</md-menu-item>
 					</md-menu-content>
