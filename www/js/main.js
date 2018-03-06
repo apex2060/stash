@@ -16,8 +16,8 @@ var app = angular.module('app', ['ngMaterial','firebase','ngRoute'])
 app.config(function($mdThemingProvider, $locationProvider, $routeProvider){
 	$locationProvider.hashPrefix('');
 	$mdThemingProvider.theme('default')
-	.primaryPalette('pink')
-	.accentPalette('blue');
+	.primaryPalette('blue')
+	.accentPalette('grey');
 	$routeProvider
 	.when('/:view', {
 		controller: 'SiteCtrl',
@@ -434,8 +434,6 @@ app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, conf
 })
 
 app.controller('LocCtrl', function LocCtrl($scope, $http, config){
-	console.log('LocCtrl')
-	console.log($scope)
 	var js = $scope.js = {
 		init: function(){
 		},
