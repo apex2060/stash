@@ -434,6 +434,7 @@ app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, conf
 })
 
 app.controller('LocCtrl', function LocCtrl($scope, $http, config){
+	$scope.test = 'testing 123'
 	var js = $scope.js = {
 		init: function(){
 		},
