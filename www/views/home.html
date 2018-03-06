@@ -3,7 +3,7 @@
 		<img src="https://res.cloudinary.com/stashmob-co/image/upload/v1516031622/p2pq0caf0k4yluumrbsp.png">
 		<h3>{{account.coins}} Coins</h3>
 	</div>
-	<a class="promotion" ng-href="#!/adventure/{{campaign._id}}">
+	<a class="promotion" ng-href="#/adventure/{{campaign._id}}">
 		<img ng-src="{{campaign.img.src}}">
 		<div class="title">
 			{{campaign.title}}
@@ -16,7 +16,7 @@
 			<div layout-margin md-whiteframe="1">
 				<div>
 					<img ng-src="{{item.img.url}}">
-					<a href="#!/item/{{item.$id}}">{{item.title}}</a>
+					<a href="#/item/{{item.$id}}">{{item.title}}</a>
 				</div>
 			</div>
 		</div>
@@ -30,19 +30,19 @@
 		</md-fab-trigger>
 		
 		<md-fab-actions>
-			<md-button aria-label="Home" class="md-fab md-raised md-mini" ng-href="#!/home">
+			<md-button aria-label="Home" class="md-fab md-raised md-mini" ng-href="#/home">
 				<i class="fa fa-home"></i>
 			</md-button>
-			<md-button aria-label="Shop" class="md-fab md-raised md-mini" ng-href="#!/locations/retail">
+			<md-button aria-label="Shop" class="md-fab md-raised md-mini" ng-href="#/locations/retail">
 				<i class="fa fa-building"></i>
 			</md-button>
-			<md-button aria-label="Eat" class="md-fab md-raised md-mini" ng-href="#!/locations/restaurant">
+			<md-button aria-label="Eat" class="md-fab md-raised md-mini" ng-href="#/locations/restaurant">
 				<i class="fa fa-cutlery"></i>
 			</md-button>
-			<md-button aria-label="Activities" class="md-fab md-raised md-mini" ng-href="#!/locations/activities">
+			<md-button aria-label="Activities" class="md-fab md-raised md-mini" ng-href="#/locations/activities">
 				<i class="fa fa-ticket"></i>
 			</md-button>
-			<md-button aria-label="Services" class="md-fab md-raised md-mini" ng-href="#!/locations/services">
+			<md-button aria-label="Services" class="md-fab md-raised md-mini" ng-href="#/locations/services">
 				<i class="fa fa-sticky-note"></i>
 			</md-button>
 		</md-fab-actions>
