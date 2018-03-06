@@ -432,222 +432,165 @@ app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, conf
 	js.init();
 	it.HomeCtrl = $scope;
 })
-// app.controller('HomeCtrl', function HomeCtrl($rootScope, $scope, $http, config, Auth, Firestore){
-// 	var js = $scope.js = {
-// 		init: function(){
-// 			$scope.message = 'Welcome to the past.'
-// 		},
-// 		map: function(){
-// 			alert('map')
-// 			var map;
-// 			document.addEventListener("deviceready", function() {
-// 				var div = document.getElementById("map_canvas");
 
-// 				// Initialize the map view
-// 				map = plugin.google.maps.Map.getMap(div);
-
-// 				// Wait until the map is ready status.
-// 				map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
-// 			}, false);
-
-// 			function onMapReady() {
-// 				var button = document.getElementById("button");
-// 				button.addEventListener("click", onButtonClick);
-// 			}
-
-// 			function onButtonClick() {
-
-// 				// Move to the position with animation
-// 				map.animateCamera({
-// 					target: { lat: 37.422359, lng: -122.084344 },
-// 					zoom: 17,
-// 					tilt: 60,
-// 					bearing: 140,
-// 					duration: 5000
-// 				}, function() {
-
-// 					// Add a maker
-// 					map.addMarker({
-// 						position: { lat: 37.422359, lng: -122.084344 },
-// 						title: "Welecome to \n" +
-// 							"Cordova GoogleMaps plugin for iOS and Android",
-// 						snippet: "This plugin is awesome!",
-// 						animation: plugin.google.maps.Animation.BOUNCE
-// 					}, function(marker) {
-
-// 						// Show the info window
-// 						marker.showInfoWindow();
-
-// 						// Catch the click event
-// 						marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-
-// 							// To do something...
-// 							alert("Hello world!");
-
-// 						});
-// 					});
-// 				});
-// 			}
-// 		}
-// 	}
-// 	js.init();
-// 	it.HomeCtrl = $scope;
-// })
-app.controller('NoteCtrl', function NoteCtrl($scope, $http, $mdToast, config, Auth, Firestore){
+app.controller('LocCtrl', function LocCtrl($scope, $http, config){
+	console.log('LocCtrl')
+	console.log($scope)
 	var js = $scope.js = {
 		init: function(){
-			var subjects = ['English','Math','Science','Something Else','Another Subject']
-			$scope.subjects = subjects.map(function(s,i){return {title:s,i:i}})
-			js.reset();
 		},
-		reset: function(){
-			$scope.note = {children: []};
-		},
-		upload: function(){
-			cloudinary.openUploadWidget({cloud_name: 'overturelearning', upload_preset: 'portfolio', sources: ['local','camera'], theme:'minimal'}, function(error, result) {
-				var img = result[0];
-					img.src = img.secure_url;
-				$scope.$apply(function(){
-					$scope.note.img = img;
+		locations: {
+			init: function(){
+				js.locations.update();
+				$scope.$on('$routeChangeStart', function(next, current) { 
+					js.locations.update();
+				});
+			},
+			update: function(){
+				navigator.geolocation.getCurrentPosition(function(pos){
+					js.locations.load(pos.coords, $scope.params.id)
+					// js.locations.display(pos.coords);
 				})
-			});
-		},
-		// upload: function(event){
-		// 	var files = event.target.files;
-		// 	for (var i = 0; i < files.length; i++) {
-		// 		var file = files[i];
-		// 		var reader = new FileReader();
-		// 		reader.onload = $scope.js.load; 
-		// 		reader.readAsDataURL(file);
-		// 	}
-		// },
-		// load: function(event){
-		// 	$scope.$apply(function() {
-		// 		$scope.note.img = event.target.result;
-		// 	});
-		// },
-		save: function(){
-			$scope.note.createdOn = new Date().toISOString();
-			$scope.note.createdBy = $scope.user.uid;
-			$scope.note && $scope.note.children && 
-			$scope.note.children.forEach(function(childId, i){
-				$scope.fireStu.get(childId).then(function(child){
-					child.private.notes = child.private.notes || [];
-					child.private.notes.push($scope.note);
-					$scope.fireStu.save('private', child);
-					if(i == $scope.note.children.length-1){
-						js.reset();
-						$mdToast.show(
-							$mdToast.simple()
-							.textContent('Note Saved')
-							.hideDelay(3000)
-						);
+			},
+			load: function(geo, category){
+				var qry = {
+					find: {
+						geo: {
+							$near: {
+								$geometry: { 
+									type: "Point",
+		                            coordinates: [geo.longitude, geo.latitude] 
+								},
+								$minDistance: 1,
+								$maxDistance: 15000,
+							}
+						}
 					}
-				})
-			})
-		},
-		search: function(qry){
-			return $scope.children.filter(function(c){
-				return angular.toJson(c).toLowerCase().indexOf(qry.toLowerCase()) != -1;
-			});
-		},
-	}
-	js.init();
-	it.NoteCtrl = $scope;
-})
-app.controller('ReceiptCtrl', function ReceiptCtrl($scope, $http, config, Auth, Firestore, $mdDialog){
-	var js = $scope.js = {
-		init: function(){
-			var budgets = ['STEM','CORE','FLEX']
-			$scope.budgets = budgets.map(function(s,i){return {title:s,i:i}})
-			$scope.receipt = {};
-		},
-		upload: function(){
-			cloudinary.openUploadWidget({cloud_name: 'overturelearning', upload_preset: 'receipt', sources: ['local','camera'], theme:'minimal'}, function(error, result) {
-				var img = result[0];
-					img.src = img.secure_url;
-				$scope.$apply(function(){
-					$scope.receipt.img = img;
-				})
-			});
-		},
-		line: {
-			save: function(){
-				//do some quick validation logic
-				$scope.receipt.lines = $scope.receipt.lines || [];
-				$scope.receipt.lines.push($scope.line);
-				js.line.dot($scope.line);
-				delete $scope.line;
-				$mdDialog.hide();
-			},
-			cancel: function(){
-				$mdDialog.cancel();
-			},
-			set: function(event){
-				$scope.nlEvent = event;
-				$scope.line = {stats: {
-					top:	event.originalEvent.offsetY,
-					left:	event.originalEvent.offsetX,
-					width:	$(event.target).width(),
-					height: $(event.target).height()
-				}};
-				
-				$mdDialog.show({
-					scope: $scope,
-					preserveScope: true,
-					templateUrl: 'receipt.dialog',
-					parent: angular.element(document.body),
-					targetEvent: event
+				}
+				if(category)
+					qry.find.industry = category;
+				$http.post('https://dashboard.stashmob.co/cloud/mongo/locations', qry).then(function(r){
+					$scope.locations = r.data;	
 				})
 			},
-			dot: function(line){
-				var dot = $('<div class="dot"></div>').css({
-					top: line.stats.top,
-					left: line.stats.left,
-				})
-				$($scope.nlEvent.target).parent().append(dot)
+			display: function(geo){
+				var latLng = {lat: geo.latitude, lng: geo.longitude};
+				$scope.map = $scope.map || new google.maps.Map(document.getElementById('map'), {
+					center: latLng,
+					zoom: 19
+				});
+			}
+		},
+		loc: {
+			init: function(){
+				js.loc.update();
+				$scope.$on('$routeChangeStart', function(next, current) { 
+					js.loc.update();
+				});
 			},
-		},
-		save: function(){
-			$http.post('/cloud/receipt', $scope.receipt).then(function(r){
-				$mdToast.show(
-					$mdToast.simple()
-					.textContent('Receipt Submitted')
-					.hideDelay(3000)
-				);
-			})
-		},
-		search: function(qry){
-			return $scope.account.children.filter(function(c){
-				return angular.toJson(c).toLowerCase().indexOf(qry.toLowerCase()) != -1;
-			});
+			update: function(){
+				console.log('update')
+				$http.get('https://dashboard.stashmob.co/cloud/mongo/locations?objectId='+$scope.params.id).then(function(r){
+					$scope.loc = r.data;	
+				})
+			}
 		}
 	}
+	it.LocCtrl = $scope;
 	js.init();
-	it.ReceiptCtrl = $scope;
 })
-app.controller('ChildCtrl', function ChildCtrl($scope, $http, $location, $routeParams, config, Auth){
+app.controller('AdventureCtrl', function LocCtrl($scope, $http, $routeParams, config){
 	var js = $scope.js = {
 		init: function(){
-			Auth.init().then(function(user){
-				$scope.fireStu.get($routeParams.id).then(function(data){
-					$scope.child = data;
-				})
+			$http.post(config.origin+'/cloud/mongo/adventures?objectId='+$routeParams.id).then(function(r){
+				$scope.adventure = r.data;
+				$scope.locations = r.data && r.data.locations;
 			})
-			// Auth.init().then(function(){
-			// 	db.collection('student_private').doc($routeParams.id).get().then((doc) => {
-			// 		$scope.$apply(function(){
-			// 			$scope.child = doc;
-			// 		})
-			// 	});
-			// 	db.collection('student_data').doc($routeParams.id).get().then((doc) => {
-			// 		$scope.$apply(function(){
-			// 			$scope.child_data = doc;
-			// 		})
-			// 	});
-			// })
 		}
 	}
+	it.AdventureCtrl = $scope;
 	js.init();
-	it.ChildCtrl = $scope;
+})
+
+app.controller('MapCtrl', function MapCtrl($scope, $http, config){
+	var js = $scope.js = {
+		init: function(){
+			js.map.init();
+		},
+		hide: function(){
+			$('.overlay').remove();
+		},
+		redeem: function(){
+			window.location = '#!/redeem/'+$routeParams.id;
+		},
+		map: {
+			init: function(){
+				js.map.update();
+			},
+			update: function(){
+				navigator.geolocation.getCurrentPosition(function(pos){
+					js.map.load(pos.coords, $scope.params.id)
+				})
+			},
+			load: function(geo, category){
+				$http.get('https://dashboard.stashmob.co/cloud/mongo/locations?objectId='+$scope.params.id).then(function(r){
+					$scope.loc = r.data;
+					js.map.display(geo, $scope.loc);
+				})
+			},
+			display: function(geo, loc){
+				var latLng = {lat: geo.latitude, lng: geo.longitude};
+				$scope.map = $scope.map || new google.maps.Map(document.getElementById('map'), {
+					center: latLng,
+					zoom: 17
+				});
+				js.map.setTilt(45);
+				js.map.current();
+				js.map.coins(loc);
+			},
+			coins: function(loc){
+				var latLng = {lat: loc.geo.latitude, lng: loc.geo.longitude};
+				var icon = 'https://res.cloudinary.com/stashmob-co/image/upload/v1515889620/sbud4ibxy2mf43lvlqns.png';
+				new google.maps.Marker({
+					position: latLng,
+					map: $scope.map,
+					title: 'Coin Stash',
+					icon
+				});
+			},
+			current: function(){
+				var icon = 'https://res.cloudinary.com/stashmob-co/image/upload/v1515899992/hmpxgrddorsqmd1dpcke.png';
+				navigator.geolocation.getCurrentPosition(function(pos){
+					var latLng = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+					$scope.myMarker = new google.maps.Marker({
+						map: $scope.map,
+						position: latLng,
+						icon
+					});
+					// $scope.myPoint = new google.maps.Circle({
+					// 	strokeColor: '#002a6a',
+					// 	strokeOpacity: 1,
+					// 	strokeWeight: 2,
+					// 	fillColor: '#002a6a',
+					// 	fillOpacity: 1,
+					// 	map: $scope.map,
+					// 	center: latLng,
+					// 	radius: 2
+					// });
+					// $scope.myCircle = new google.maps.Circle({
+					// 	strokeColor: '#2196f3',
+					// 	strokeOpacity: 0.8,
+					// 	strokeWeight: 2,
+					// 	fillColor: '#2196f3',
+					// 	fillOpacity: 0.35,
+					// 	map: $scope.map,
+					// 	center: latLng,
+					// 	radius: 20
+					// });
+				});
+			}
+		}
+	}
+	it.MapCtrl = $scope;
+	js.init();
 })

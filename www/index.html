@@ -37,7 +37,7 @@
 		
     	<script src="js/main.js"></script>
 	</head>
-	<body layout="column">
+	<body layout="column" ng-controller="SiteCtrl">
 		<md-toolbar class="md-primary">
 			<div class="md-toolbar-tools">
 				<h2 flex><a ng-href="#/app-home">Stash Mob</a></h2>
@@ -68,6 +68,7 @@
 				<!--</md-menu>-->
 			</div>
 		</md-toolbar>
+		{{params}}
 		<md-content layout="column" flex ng-view></md-content>
 		<!--<md-fab-speed-dial md-direction="up" class="main-fab md-scale">-->
 		<!--	<md-fab-trigger>-->
