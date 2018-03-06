@@ -415,67 +415,84 @@ app.controller('SettingCtrl', function SettingCtrl($scope, $http, config){
 	js.init();
 	it.SettingCtrl = $scope;
 })
-app.controller('HomeCtrl', function HomeCtrl($rootScope, $scope, $http, config, Auth, Firestore){
+app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, config){
 	var js = $scope.js = {
 		init: function(){
-			$scope.message = 'Welcome to the past.'
+			$http.get(config.origin+'/cloud/mongo/adventures').then(function(r){
+				var adv = $scope.adventures = r.data;
+				var c = Math.floor(Math.random() * adv.length);
+				console.log(c);
+				$scope.campaign = $scope.adventures[c];
+			})
+			
+			var ref = firebase.database().ref().child("ud/data/market");
+			$scope.market = $firebaseArray(ref);
 		},
-		map: function(){
-			alert('map')
-			var map;
-			document.addEventListener("deviceready", function() {
-				var div = document.getElementById("map_canvas");
-
-				// Initialize the map view
-				map = plugin.google.maps.Map.getMap(div);
-
-				// Wait until the map is ready status.
-				map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
-			}, false);
-
-			function onMapReady() {
-				var button = document.getElementById("button");
-				button.addEventListener("click", onButtonClick);
-			}
-
-			function onButtonClick() {
-
-				// Move to the position with animation
-				map.animateCamera({
-					target: { lat: 37.422359, lng: -122.084344 },
-					zoom: 17,
-					tilt: 60,
-					bearing: 140,
-					duration: 5000
-				}, function() {
-
-					// Add a maker
-					map.addMarker({
-						position: { lat: 37.422359, lng: -122.084344 },
-						title: "Welecome to \n" +
-							"Cordova GoogleMaps plugin for iOS and Android",
-						snippet: "This plugin is awesome!",
-						animation: plugin.google.maps.Animation.BOUNCE
-					}, function(marker) {
-
-						// Show the info window
-						marker.showInfoWindow();
-
-						// Catch the click event
-						marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-
-							// To do something...
-							alert("Hello world!");
-
-						});
-					});
-				});
-			}
-		}
 	}
 	js.init();
 	it.HomeCtrl = $scope;
 })
+// app.controller('HomeCtrl', function HomeCtrl($rootScope, $scope, $http, config, Auth, Firestore){
+// 	var js = $scope.js = {
+// 		init: function(){
+// 			$scope.message = 'Welcome to the past.'
+// 		},
+// 		map: function(){
+// 			alert('map')
+// 			var map;
+// 			document.addEventListener("deviceready", function() {
+// 				var div = document.getElementById("map_canvas");
+
+// 				// Initialize the map view
+// 				map = plugin.google.maps.Map.getMap(div);
+
+// 				// Wait until the map is ready status.
+// 				map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
+// 			}, false);
+
+// 			function onMapReady() {
+// 				var button = document.getElementById("button");
+// 				button.addEventListener("click", onButtonClick);
+// 			}
+
+// 			function onButtonClick() {
+
+// 				// Move to the position with animation
+// 				map.animateCamera({
+// 					target: { lat: 37.422359, lng: -122.084344 },
+// 					zoom: 17,
+// 					tilt: 60,
+// 					bearing: 140,
+// 					duration: 5000
+// 				}, function() {
+
+// 					// Add a maker
+// 					map.addMarker({
+// 						position: { lat: 37.422359, lng: -122.084344 },
+// 						title: "Welecome to \n" +
+// 							"Cordova GoogleMaps plugin for iOS and Android",
+// 						snippet: "This plugin is awesome!",
+// 						animation: plugin.google.maps.Animation.BOUNCE
+// 					}, function(marker) {
+
+// 						// Show the info window
+// 						marker.showInfoWindow();
+
+// 						// Catch the click event
+// 						marker.on(plugin.google.maps.event.INFO_CLICK, function() {
+
+// 							// To do something...
+// 							alert("Hello world!");
+
+// 						});
+// 					});
+// 				});
+// 			}
+// 		}
+// 	}
+// 	js.init();
+// 	it.HomeCtrl = $scope;
+// })
 app.controller('NoteCtrl', function NoteCtrl($scope, $http, $mdToast, config, Auth, Firestore){
 	var js = $scope.js = {
 		init: function(){

@@ -4,9 +4,9 @@
 		<meta charset='utf-8'>
 		<title>Stash Mob</title>
 		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-		<meta name='description' content='Boilerplate for mobile - Offline capable apps.'>
+		<meta name='description' content='Earn points and get rewards doing what you have to do.'>
 		<meta name='viewport' content='width=device-width, initial-scale=1'>
-		<link rel='canonical' href='https://the.atfiliate.com/component/app'>
+		<link rel='canonical' href='https://app.stashmob.co'>
 		<link rel='manifest' href='app_json'>
 		<meta name='mobile-web-app-capable' content='yes'>
 		<meta name='apple-mobile-web-app-capable' content='yes'>
@@ -41,31 +41,31 @@
 		<md-toolbar class="md-primary">
 			<div class="md-toolbar-tools">
 				<h2 flex><a ng-href="#/app-home">Stash Mob</a></h2>
-				<md-button ng-hide="user" aria-label="menu" class="md-icon-button" ng-click="auth.login('Google')">
-					<i class="fas fa-address-card"></i>
-				</md-button>
-				<md-menu ng-show="user">
-					<a class="thumbnail" ng-click="$mdMenu.open()">
-						<img ng-src="{{user.photoURL}}">
-					</a>
-					<md-menu-content width="4">
-						<md-menu-item>
-							<md-button ng-href="#/app-notebook">
-								<i class="fas fa-pen-square"></i> Notebook
-							</md-button>
-						</md-menu-item>
-						<md-menu-item>
-							<md-button ng-href="#/app-receipts">
-								<i class="fas fa-dollar-sign"></i> Receipts
-							</md-button>
-						</md-menu-item>
-						<md-menu-item>
-							<md-button ng-href="#/app-settings">
-								<i class="fas fa-cogs"></i> Settings
-							</md-button>
-						</md-menu-item>
-					</md-menu-content>
-				</md-menu>
+				<!--<md-button ng-hide="user" aria-label="menu" class="md-icon-button" ng-click="auth.login('Google')">-->
+				<!--	<i class="fas fa-address-card"></i>-->
+				<!--</md-button>-->
+				<!--<md-menu ng-show="user">-->
+				<!--	<a class="thumbnail" ng-click="$mdMenu.open()">-->
+				<!--		<img ng-src="{{user.photoURL}}">-->
+				<!--	</a>-->
+				<!--	<md-menu-content width="4">-->
+				<!--		<md-menu-item>-->
+				<!--			<md-button ng-href="#/app-notebook">-->
+				<!--				<i class="fas fa-pen-square"></i> Notebook-->
+				<!--			</md-button>-->
+				<!--		</md-menu-item>-->
+				<!--		<md-menu-item>-->
+				<!--			<md-button ng-href="#/app-receipts">-->
+				<!--				<i class="fas fa-dollar-sign"></i> Receipts-->
+				<!--			</md-button>-->
+				<!--		</md-menu-item>-->
+				<!--		<md-menu-item>-->
+				<!--			<md-button ng-href="#/app-settings">-->
+				<!--				<i class="fas fa-cogs"></i> Settings-->
+				<!--			</md-button>-->
+				<!--		</md-menu-item>-->
+				<!--	</md-menu-content>-->
+				<!--</md-menu>-->
 			</div>
 		</md-toolbar>
 		<md-content layout="column" flex ng-view></md-content>
