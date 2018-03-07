@@ -10,8 +10,8 @@
   </author>
   <content src="index.html"/>
   <allow-navigation href="tel:*" />
-  <access origin='*'/>
-  <access origin='*' allows-arbitrary-loads-for-media='true' allows-arbitrary-loads-in-web-content='true' allows-local-networking='true' />
+  <access origin=".*"/> 
+  <!--<access origin='*' allows-arbitrary-loads-for-media='true' allows-arbitrary-loads-in-web-content='true' allows-local-networking='true' />-->
   <access launch-external="yes" origin="tel:*"/>
   <access launch-external="yes" origin="maps:*"/>
   <access launch-external="yes" origin="geo:*"/>
