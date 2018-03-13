@@ -25,7 +25,7 @@ app.config(function($mdThemingProvider, $locationProvider, $routeProvider){
 
 app.factory('config', function(){
 	var config = {
-		host: 'https://dashboard.stashmob.com',
+		host: 'https://dashboard.stashmob.co',
 		clientId: '',
 		firebase: {
 			apiKey: "AIzaSyArptSeFJqZ9DHfRPaYhM4Zqm-wotfFt_A",
