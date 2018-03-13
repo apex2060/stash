@@ -1,16 +1,3 @@
-// if('serviceWorker' in navigator) {
-// 	navigator.serviceWorker.register('app-sw_js', { scope: '/component/' })
-// 	.then(function(registration) {
-// 		console.log('Service Worker Registered');
-// 	});
-// 	navigator.serviceWorker.ready
-// 	.then(function(registration) {
-// 		console.log('Service Worker Ready');
-// 		document.title = 'Mobile Ninja!';
-// 	});
-// }
-
-
 var it = {};
 var app = angular.module('app', ['ngMaterial','firebase','ngRoute'])
 app.config(function($mdThemingProvider, $locationProvider, $routeProvider){
