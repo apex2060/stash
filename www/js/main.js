@@ -536,10 +536,11 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, config){
 			$('.overlay').remove();
 		},
 		redeem: function(){
-			window.location = '#!/redeem/'+$routeParams.id;
+			window.location = '#/redeem/'+$routeParams.id;
 		},
 		map: {
 			init: function(){
+				alert('init')
 				js.map.update();
 			},
 			update: function(){
