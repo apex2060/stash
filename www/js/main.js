@@ -573,14 +573,14 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, config){
 				})
 			},
 			display: function(geo, loc){
-				var latLng = {lat: geo.latitude, lng: geo.longitude};
+				var latLng = new google.maps.LatLng(geo.latitude, geo.longitude);
 				$scope.map = $scope.map || new google.maps.Map(document.getElementById('map'), {
 					center: latLng,
 					zoom: 17
 				});
-				js.map.setTilt(45);
-				js.map.current();
-				js.map.coins(loc);
+				// js.map.setTilt(45);
+				// js.map.current();
+				// js.map.coins(loc);
 			},
 			coins: function(loc){
 				var latLng = {lat: loc.geo.latitude, lng: loc.geo.longitude};
