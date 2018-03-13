@@ -25,7 +25,7 @@ app.config(function($mdThemingProvider, $locationProvider, $routeProvider){
 
 app.factory('config', function(){
 	var config = {
-		host: 'https://app.stashmob.com',
+		host: 'https://dashboard.stashmob.com',
 		clientId: '',
 		firebase: {
 			apiKey: "AIzaSyArptSeFJqZ9DHfRPaYhM4Zqm-wotfFt_A",
@@ -405,7 +405,8 @@ app.controller('SettingCtrl', function SettingCtrl($scope, $http, config){
 app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, config){
 	var js = $scope.js = {
 		init: function(){
-			$http.get(config.origin+'/cloud/mongo/adventures').then(function(r){
+			js.geo.init();
+			$http.get(config.host+'/cloud/mongo/adventures').then(function(r){
 				var adv = $scope.adventures = r.data;
 				var c = Math.floor(Math.random() * adv.length);
 				console.log(c);
@@ -415,6 +416,32 @@ app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, conf
 			var ref = firebase.database().ref().child("ud/data/market");
 			$scope.market = $firebaseArray(ref);
 		},
+		geo: {
+			init: function(){
+				document.addEventListener("deviceready", onDeviceReady, false);
+				function onDeviceReady() {
+					var onSuccess = function(position) {
+					    alert('Latitude: '          + position.coords.latitude          + '\n' +
+					          'Longitude: '         + position.coords.longitude         + '\n' +
+					          'Altitude: '          + position.coords.altitude          + '\n' +
+					          'Accuracy: '          + position.coords.accuracy          + '\n' +
+					          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+					          'Heading: '           + position.coords.heading           + '\n' +
+					          'Speed: '             + position.coords.speed             + '\n' +
+					          'Timestamp: '         + position.timestamp                + '\n');
+					};
+					
+					// onError Callback receives a PositionError object
+					//
+					function onError(error) {
+					    alert('code: '    + error.code    + '\n' +
+					          'message: ' + error.message + '\n');
+					}
+					
+					navigator.geolocation.getCurrentPosition(onSuccess, onError);
+				}
+			}
+		}
 	}
 	js.init();
 	it.HomeCtrl = $scope;
