@@ -409,10 +409,10 @@ app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, conf
 			$http.get(config.host+'/cloud/mongo/adventures').then(function(r){
 				var adv = $scope.adventures = r.data;
 				var c = Math.floor(Math.random() * adv.length);
-				alert(c);
+				// alert(c);
 				$scope.campaign = $scope.adventures[c];
 			}, function(e){
-				alert(e)
+				// alert(e)
 			})
 			
 			var ref = firebase.database().ref().child("ud/data/market");
