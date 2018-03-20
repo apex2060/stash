@@ -1,8 +1,19 @@
 body{
 	max-width: 500px;
-    margin: 0px auto;
-    background: #EFEFEF;
+	margin: 0px auto;
+	background: #EFEFEF;
 }
+
+.ng-enter {
+	animation: scaleUp 0.5s both ease-in;
+	z-index: 8888;
+}
+.ng-leave {
+	animation: slideOutLeft 0.5s both ease-in;
+	z-index: 9999;
+}
+
+
 body md-content{
 	background: #EFEFEF;
 }

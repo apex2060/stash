@@ -1,5 +1,5 @@
 var it = {};
-var app = angular.module('app', ['ngMaterial','firebase','ngRoute'])
+var app = angular.module('app', ['ngMaterial','firebase','ngRoute','ngAnimate'])
 app.config(function($mdThemingProvider, $locationProvider, $routeProvider){
 	$locationProvider.hashPrefix('');
 	$mdThemingProvider.theme('default')
