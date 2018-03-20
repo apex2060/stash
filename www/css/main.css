@@ -5,11 +5,11 @@ body{
 }
 
 .ng-enter {
-	animation: slideInDown 0.5s both ease-in;
+	animation: slideInUp 0.5s both ease-in;
 	z-index: 8888;
 }
 .ng-leave {
-	animation: slideOutDown 0.5s both ease-in;
+	animation: zoomOutUp 0.5s both ease-in;
 	z-index: 9999;
 }
 
@@ -20,6 +20,12 @@ body md-content{
 img{
 	width: 100%;
 }
+
+#main>div{
+	height: 100%;
+	overflow: auto;
+}
+
 #container{
 	background: #FF1744;
 	color: #FFF;
