@@ -8,10 +8,10 @@ body{
 	animation: slideInUp 0.5s both;
 	z-index: 9999;
 }
-.ng-leave {
-	animation: zoomOutDown 0.5s both;
-	z-index: 8888;
-}
+/*.ng-leave {*/
+/*	animation: slideOutDown 0.5s both;*/
+/*	z-index: 8888;*/
+/*}*/
 
 
 body md-content{
