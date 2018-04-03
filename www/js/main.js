@@ -468,24 +468,8 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 			},
 			load: function(geo, category){
 				$scope.category = category;
-				var qry = {
-					find: {
-						geo: {
-							$near: {
-								$geometry: { 
-									type: "Point",
-		                            coordinates: [geo.longitude, geo.latitude] 
-								},
-								$minDistance: 1,
-								$maxDistance: 15000,
-							}
-						}
-					}
-				}
-				if(category)
-					qry.find.industry = category;
-				$http.post('https://dashboard.stashmob.co/cloud/mongo/locations', qry).then(function(r){
-					$scope.locations = r.data;	
+				$http.post('https://dashboard.stashmob.co/cloud/api-locations', {geo,category}).then(function(r){
+					$scope.locations = r.data.filter(l=>(l.industry==category))
 				})
 			},
 			display: function(geo){
