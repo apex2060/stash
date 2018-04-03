@@ -462,7 +462,6 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 			},
 			update: function(){
 				navigator.geolocation.getCurrentPosition(function(pos){
-					alert(JSON.stringify(pos.coords))
 					js.locations.load(pos.coords, $scope.params.id)
 					// js.locations.display(pos.coords);
 				})
