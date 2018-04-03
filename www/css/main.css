@@ -126,7 +126,7 @@ img{
 	color: #FFF;
 	border-radius: 0px 0px 4px 4px;
 }
-#locations a{
+#locations .content a{
 	text-decoration: none;
 	color: #ea2a6c;
 }

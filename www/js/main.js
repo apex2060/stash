@@ -469,7 +469,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 			},
 			load: function(geo, category){
 				$scope.category = category;
-				$http.post('https://dashboard.stashmob.co/cloud/api-locations', {geo: {lat: geo.latitude, lng: geo.longitude},category}).then(function(r){
+				$http.post('https://dashboard.stashmob.co/cloud/api-locations', {geo: {latitude: geo.latitude, longitude: geo.longitude},category}).then(function(r){
 					$scope.locations = r.data.filter(l=>(l.industry==category))
 				})
 			},
