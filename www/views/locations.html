@@ -17,7 +17,7 @@
 		</div>
 		<div class="footer">
 			<p>{{loc.address.street}}</p>
-			<span>{{js.loc.distance(loc)}}</span>|<span><i class="fa fa-rocket"></i> <a ng-href="#/location/{{loc._id}}">Get Directions</a></span>
+			<span>{{loc.distance}}</span>|<span><i class="fa fa-rocket"></i> <a ng-href="#/location/{{loc._id}}">Get Directions</a></span>
 			<div class="favorite" ng-click="js.loc.favorite(loc)" ng-show="loc.favorite"><i class="fas fa-heart"></i></div>
 			<div class="favorite" ng-click="js.loc.favorite(loc)" ng-hide="loc.favorite"><i class="far fa-heart"></i></div>
 		</div>

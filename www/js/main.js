@@ -1,3 +1,7 @@
+/*
+	global app, angular, firebase, google, navigator, $script, localStorage
+*/
+
 var it = {};
 var app = angular.module('app', ['ngMaterial','firebase','ngRoute','ngAnimate'])
 app.config(function($mdThemingProvider, $locationProvider, $routeProvider){
@@ -469,7 +473,13 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 			load: function(geo, category){
 				$scope.category = category;
 				$http.post('https://dashboard.stashmob.co/cloud/api-locations', {geo: {latitude: geo.latitude, longitude: geo.longitude},category}).then(function(r){
-					$scope.locations = r.data.filter(l=>(l.industry==category))
+					$scope.locations = r.data.filter(l=>(l.industry==category));
+					$scope.locations = $scope.locations.map(loc=>{
+						var from = new google.maps.LatLng(geo.latitude, geo.longitude)
+						var to = new google.maps.LatLng(loc.geo.latitude, loc.geo.longitude)
+						loc.distance = google.maps.geometry.spherical.computeDistanceBetween(from, to)
+						return loc;
+					})
 				})
 			},
 			display: function(geo){
