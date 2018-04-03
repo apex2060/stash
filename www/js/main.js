@@ -456,6 +456,7 @@ app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, conf
 app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 	var js = $scope.js = {
 		init: function(){
+			js.locations.init();
 		},
 		locations: {
 			init: function(){
