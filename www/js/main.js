@@ -462,13 +462,14 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 			},
 			update: function(){
 				navigator.geolocation.getCurrentPosition(function(pos){
+					alert(JSON.stringify(pos.coords))
 					js.locations.load(pos.coords, $scope.params.id)
 					// js.locations.display(pos.coords);
 				})
 			},
 			load: function(geo, category){
 				$scope.category = category;
-				$http.post('https://dashboard.stashmob.co/cloud/api-locations', {geo,category}).then(function(r){
+				$http.post('https://dashboard.stashmob.co/cloud/api-locations', {geo: {lat: geo.latitude, lng: geo.longitude},category}).then(function(r){
 					$scope.locations = r.data.filter(l=>(l.industry==category))
 				})
 			},
