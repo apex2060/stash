@@ -50,6 +50,7 @@ img{
 }
 
 .header{
+	position: relative;
 	height: 200px;
 	overflow: hidden;
 	border-bottom: 5px solid #ff1493;
