@@ -475,11 +475,20 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 				$scope.category = category;
 				$http.post('https://dashboard.stashmob.co/cloud/api-locations', {geo: {latitude: geo.latitude, longitude: geo.longitude},category}).then(function(r){
 					$scope.locations = r.data.filter(l=>(l.industry==category));
-					$scope.locations = $scope.locations.map(loc=>{
-						var from = new google.maps.LatLng(geo.latitude, geo.longitude)
-						var to = new google.maps.LatLng(loc.geo.latitude, loc.geo.longitude)
-						loc.distance = google.maps.geometry.spherical.computeDistanceBetween(from, to)
-						return loc;
+					var origins = [new google.maps.LatLng(geo.latitude, geo.longitude)];
+					var destinations = $scope.locations.map(loc=>{
+						return new google.maps.LatLng(loc.geo.latitude, loc.geo.longitude)
+					})
+					var dm = new google.maps.DistanceMatrixService();
+					dm.getDistanceMatrix({
+						origins, destinations,
+						travelMode: 'DRIVING',
+						unitSystem: google.maps.UnitSystem.IMPERIAL
+					}, result=>{
+						result.rows[0].elements.forEach((elem, i)=>{
+							$scope.locations[i].distance = elem.distance
+						})
+						$scope.$apply();
 					})
 				})
 			},
