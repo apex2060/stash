@@ -450,7 +450,6 @@ app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, conf
 })
 
 app.controller('LocCtrl', function LocCtrl($scope, $http, config){
-	$scope.test = 'testing 123'
 	var js = $scope.js = {
 		init: function(){
 		},
@@ -468,6 +467,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 				})
 			},
 			load: function(geo, category){
+				$scope.category = category;
 				var qry = {
 					find: {
 						geo: {
@@ -508,6 +508,12 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 				$http.get('https://dashboard.stashmob.co/cloud/mongo/locations?objectId='+$scope.params.id).then(function(r){
 					$scope.loc = r.data;	
 				})
+			},
+			favorite: function(loc){
+				loc.favorite = !loc.favorite;
+			},
+			distance: function(loc){
+				return '2.1mi'
 			}
 		}
 	}
