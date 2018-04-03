@@ -33,19 +33,19 @@
 <div ng-controller="LocCtrl" layout="column" ng-init="js.loc.init()">
 	<div class="location">
 		<div style="width: 100%; height: 25vh; overflow: hidden;">
-			<img ng-src="{{loc.img.secure_url}}" style="width: 100%;">
+			<img cl-src="{{loc.img.img_url}}" transform_w="400" transform_h="200" style="width:100%;">
 			<h3>{{loc.title}}</h3>
 		</div>
 		<div class="slogan" layout-padding>
-			Some long  slogan that helps you decide to visit our store.
+			{{loc.slogan}}
 		</div>
 		<div class="description" layout-padding>
-			Some long description that helps you decide to visit our store.
+			{{loc.description}}
 			<hr>
 		</div>
 		<div layout-margin layout-padding>
 			<p><b>Phone:</b> <a href="tel:{{loc.phone}}">{{loc.phone}}</a></p>
-			<md-button class="md-block md-raised md-primary" ng-href="map">View Offers</md-button>
+			<md-button class="md-block md-raised md-primary" ng-href="#/offers/{{loc._id}}">View Offers</md-button>
 		</div>
 	</div>
 	
