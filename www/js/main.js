@@ -486,7 +486,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 						unitSystem: google.maps.UnitSystem.IMPERIAL
 					}, result=>{
 						result.rows[0].elements.forEach((elem, i)=>{
-							$scope.locations[i].distance = elem.distance
+							$scope.locations[i].distance = elem.distance.text
 						})
 						$scope.$apply();
 					})
