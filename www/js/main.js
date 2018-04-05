@@ -523,8 +523,10 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 			$('.overlay').remove();
 		},
 		redeem: function(){
-			$http.post(config.host+'/cloud/api-redeem/'+$routeParams.id).then(function(r){
-				$scope.debug = r.data;
+			firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+				$http.post(config.host+'/cloud/api-redeem/'+$routeParams.id, {idToken}).then(response=>{
+					$scope.debug = response.data;
+				})
 			})
 		},
 		map: {

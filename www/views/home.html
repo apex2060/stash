@@ -22,12 +22,15 @@
 		</div>
 	</div>
 	
-	<div class="fabs fabs5" ng-class="{expanded: fabexpand}">
+	<div class="fabs fabs5" ng-class="{expanded: fabexpand}" ng-show="user">
 		<a class="fab" ng-click="fabexpand = !fabexpand"><i class="fas fa-bars"></i></a>
 		<a class="fab" ng-href="#/home"><i class="fas fa-home"></i></a>
 		<a class="fab" ng-href="#/locations/retail"><i class="fas fa-building"></i></a>
 		<a class="fab" ng-href="#/locations/restaurant"><i class="fas fa-utensils"></i></a>
 		<a class="fab" ng-href="#/locations/activities"><i class="fas fa-ticket-alt"></i></a>
 		<a class="fab" ng-href="#/locations/services"><i class="fas fa-sticky-note"></i></a>
+	</div>
+	<div class="fabs" ng-hide="user">
+		<a class="fab" ng-click="auth.login('google')"><i class="fas fa-sign-in-alt"></i></a>
 	</div>
 </div>
