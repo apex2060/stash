@@ -11,11 +11,6 @@
   <plugin name="cordova-plugin-whitelist" spec="1" />
   <plugin name="cordova-plugin-geolocation" spec="1" />
   <plugin name="cordova-plugin-vibration" spec="1" />
-  <plugin name="cordova-plugin-buildinfo" />
-  <plugin name="cordova-universal-links-plugin" />
-  <plugin name="cordova-plugin-browsertab" />
-  <plugin name="cordova-plugin-inappbrowser" />
-  <plugin name="cordova-plugin-customurlscheme " />
   
   
   <access origin="*" />
@@ -29,14 +24,6 @@
   <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
       <string>Location is used to find rewards and stores near you.</string>
   </edit-config>
-  
-  <universal-links>
-      <host name="https://tp5z5.app.goo.gl" scheme="https" />
-      <host name="stashmob-16f57.firebaseapp.com" scheme="https">
-          <path url="/__/auth/callback"/>
-      </host>
-  </universal-links>
-  <preference name="AndroidLaunchMode" value="singleTask" />
   
   <platform name="android">
       <allow-intent href="market:*" />

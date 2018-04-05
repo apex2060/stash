@@ -131,15 +131,7 @@ app.factory('Auth', function($rootScope, $q, $firebaseAuth, $firebaseObject){
 	console.log('auth called')
 	var auth = {
 		login: function(method){
-			alert('login')
-			var provider = new firebase.auth.GoogleAuthProvider();
-			firebase.auth().signInWithRedirect(provider).then(function() {
-				return firebase.auth().getRedirectResult();
-			}).then(function(result) {
-				alert('user')
-			})
-			//google, facebook...
-			// $firebaseAuth().$signInWithPopup(method);
+			$firebaseAuth().$signInWithPopup(method);
 		},
 		init: function(){
 			//online or offline...
