@@ -12,7 +12,7 @@
   <plugin name="cordova-plugin-geolocation" spec="1" />
   <plugin name="cordova-plugin-vibration" spec="1" />
   <plugin name="cordova-plugin-buildinfo" />
-  <plugin name="cordova-plugin-universal-links-plugin" />
+  <plugin name="cordova-universal-links-plugin" />
   <plugin name="cordova-plugin-browsertab" />
   <plugin name="cordova-plugin-inappbrowser" />
   <plugin name="cordova-plugin-customurlscheme " />
