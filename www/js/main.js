@@ -280,7 +280,6 @@ app.controller('SiteCtrl', function SiteCtrl($rootScope, $scope, $firebaseObject
 	var tools = $rootScope.rootTools = {
 		init: function(){
 			Auth.init();
-			tools.loadData();
 			tools.register().then(function(device){
 				$rootScope.device = device;
 			})
@@ -299,32 +298,6 @@ app.controller('SiteCtrl', function SiteCtrl($rootScope, $scope, $firebaseObject
 				})
 			}
 			return deferred.promise;
-		},
-		loadCtrl: function(view){
-			var deferred = $q.defer();
-			$http.get('modjs_'+view).then(function(r){
-				eval('window.js'+mod+'='+r.data);
-				window['js'+view].init();
-				deferred.resolve();
-			})
-			return deferred.promise;
-		},
-		loadData: function(){
-			Auth.init().then(function(user){
-				var stuCol = [{
-					name: 'private',
-					path: 'student_private',
-					query: ['createdBy', '==', user.uid]
-				},{
-					name: 'data',
-					path: 'student_data',
-					query: ['parent', '==', user.uid]
-				}]
-				$rootScope.fireStu = Firestore(stuCol);
-				$rootScope.fireStu.list().then(function(data){
-					$scope.children = data;
-				})
-			})
 		}
 	}
 	tools.init();
@@ -473,7 +446,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 			},
 			load: function(geo, category){
 				$scope.category = category;
-				$http.post('https://dashboard.stashmob.co/cloud/api-locations', {geo: {latitude: geo.latitude, longitude: geo.longitude},category}).then(function(r){
+				$http.post(config.host+'/cloud/api-locations', {geo: {latitude: geo.latitude, longitude: geo.longitude},category}).then(function(r){
 					$scope.locations = r.data.filter(l=>(l.industry==category));
 					var origins = [new google.maps.LatLng(geo.latitude, geo.longitude)];
 					var destinations = $scope.locations.map(loc=>{
@@ -509,7 +482,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 			},
 			update: function(){
 				console.log('update')
-				$http.get('https://dashboard.stashmob.co/cloud/api-locations/'+$scope.params.id).then(function(r){
+				$http.get(config.host+'/cloud/api-locations/'+$scope.params.id).then(function(r){
 					$scope.loc = r.data;	
 				})
 			},
@@ -527,7 +500,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 app.controller('AdventureCtrl', function LocCtrl($scope, $http, $routeParams, config){
 	var js = $scope.js = {
 		init: function(){
-			$http.post(config.origin+'/cloud/api-adventures/'+$routeParams.id).then(function(r){
+			$http.post(config.host+'/cloud/api-adventures/'+$routeParams.id).then(function(r){
 				$scope.adventure = r.data;
 				$scope.locations = r.data && r.data.locations;
 			})
@@ -537,7 +510,7 @@ app.controller('AdventureCtrl', function LocCtrl($scope, $http, $routeParams, co
 	js.init();
 })
 
-app.controller('MapCtrl', function MapCtrl($scope, $http, config){
+app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 	var js = $scope.js = {
 		init: function(){
 			js.map.init();
