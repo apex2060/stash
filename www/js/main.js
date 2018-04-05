@@ -410,7 +410,7 @@ app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, conf
 	var js = $scope.js = {
 		init: function(){
 			js.geo.init();
-			$http.get(config.host+'/cloud/mongo/adventures').then(function(r){
+			$http.get(config.host+'/cloud/api-adventures').then(function(r){
 				var adv = $scope.adventures = r.data;
 				var c = Math.floor(Math.random() * adv.length);
 				// alert(c);
@@ -509,7 +509,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 			},
 			update: function(){
 				console.log('update')
-				$http.get('https://dashboard.stashmob.co/cloud/mongo/locations?objectId='+$scope.params.id).then(function(r){
+				$http.get('https://dashboard.stashmob.co/cloud/api-locations/'+$scope.params.id).then(function(r){
 					$scope.loc = r.data;	
 				})
 			},
@@ -527,7 +527,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 app.controller('AdventureCtrl', function LocCtrl($scope, $http, $routeParams, config){
 	var js = $scope.js = {
 		init: function(){
-			$http.post(config.origin+'/cloud/mongo/adventures?objectId='+$routeParams.id).then(function(r){
+			$http.post(config.origin+'/cloud/api-adventures/'+$routeParams.id).then(function(r){
 				$scope.adventure = r.data;
 				$scope.locations = r.data && r.data.locations;
 			})
