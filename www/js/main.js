@@ -382,11 +382,13 @@ app.controller('SettingCtrl', function SettingCtrl($scope, $http, config){
 app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, config){
 	var js = $scope.js = {
 		init: function(){
-			js.geo.init();
+			$scope.account = {
+				coins: 120
+			}
+			
 			$http.get(config.host+'/cloud/api-adventures').then(function(r){
 				var adv = $scope.adventures = r.data;
 				var c = Math.floor(Math.random() * adv.length);
-				// alert(c);
 				$scope.campaign = $scope.adventures[c];
 			}, function(e){
 				// alert(e)
@@ -394,6 +396,8 @@ app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, conf
 			
 			var ref = firebase.database().ref().child("ud/data/market");
 			$scope.market = $firebaseArray(ref);
+			
+			js.geo.init();
 		},
 		geo: {
 			init: function(){
@@ -519,7 +523,9 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 			$('.overlay').remove();
 		},
 		redeem: function(){
-			window.location = '#/redeem/'+$routeParams.id;
+			$http.post(config.host+'/cloud/api-redeem/'+$routeParams.id).then(function(r){
+				$scope.debug = r.data;
+			})
 		},
 		map: {
 			init: function(){
