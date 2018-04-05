@@ -131,6 +131,7 @@ app.factory('Auth', function($rootScope, $q, $firebaseAuth, $firebaseObject){
 	console.log('auth called')
 	var auth = {
 		login: function(method){
+			alert('login')
 			//google, facebook...
 			$firebaseAuth().$signInWithPopup(method);
 		},
