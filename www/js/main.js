@@ -495,7 +495,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 		},
 		offer: {
 			init: function(){
-				js.loc.update();
+				js.offer.update();
 			},
 			update: function(){
 				$http.get(config.host+'/cloud/api-offers/'+$scope.params.id).then(function(r){
