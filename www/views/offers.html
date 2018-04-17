@@ -1,4 +1,4 @@
-<div id="locations" ng-controller="LocCtrl" layout="column" ng-init="js.offers.init()">
+<div id="locations" ng-controller="LocCtrl" layout="column" ng-init="js.offer.init()">
 	<md-toolbar class="md-primary">
 		<div class="md-toolbar-tools">
 			<h2 flex><a ng-href="#/app-home">Offers</a></h2>
@@ -16,6 +16,7 @@
 			<!--<div class="favorite" ng-click="js.loc.favorite(loc)" ng-hide="loc.favorite"><i class="far fa-heart"></i></div>-->
 		</div>
 	</div>
+	{{offers}}
 	
 	<!--<div>-->
 	<!--	<div id="map" style="width:100%; height:25vh;"></div>-->

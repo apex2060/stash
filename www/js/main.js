@@ -491,9 +491,16 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 			},
 			favorite: function(loc){
 				loc.favorite = !loc.favorite;
+			}
+		},
+		offer: {
+			init: function(){
+				js.loc.update();
 			},
-			distance: function(loc){
-				return '2.1mi'
+			update: function(){
+				$http.get(config.host+'/cloud/api-offers/'+$scope.params.id).then(function(r){
+					$scope.offers = r.data;	
+				})
 			}
 		}
 	}
