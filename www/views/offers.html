@@ -7,7 +7,7 @@
 
 	<div class="list-item" layout="column" md-whiteframe="4" ng-repeat="offer in offers">
 		<div layout="row">
-			<img cl-src="{{offer.img.img_url}}" transform_w="400" transform_h="200">
+			<img cl-src="{{offer.img.secure_url}}" transform_w="400" transform_h="200">
 		</div>
 		<div class="footer">
 			<p>{{offer.code}}</p>
@@ -16,7 +16,6 @@
 			<!--<div class="favorite" ng-click="js.loc.favorite(loc)" ng-hide="loc.favorite"><i class="far fa-heart"></i></div>-->
 		</div>
 	</div>
-	{{offers}}
 	
 	<!--<div>-->
 	<!--	<div id="map" style="width:100%; height:25vh;"></div>-->
