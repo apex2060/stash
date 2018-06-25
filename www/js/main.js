@@ -519,7 +519,8 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 				if($scope.offer)
 					js.offer.view();
 				else
-					window.location = '#/location/'+$scope.params.id;
+					window.history.back();
+					// window.location = '#/location/'+$scope.params.id;
 			}
 		}
 	}
