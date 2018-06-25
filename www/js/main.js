@@ -520,7 +520,6 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 					js.offer.view();
 				else
 					window.location = '#/location/'+$scope.params.id;
-				alert(window.location.href)
 			}
 		}
 	}
@@ -599,7 +598,6 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 					center: latLng,
 					zoom: 17
 				});
-				$scope.map.setTilt(45);
 				$scope.map.setHeading(geo.heading);
 				js.map.update();
 				// js.map.current();
@@ -611,6 +609,10 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 					var latLng = new google.maps.LatLng(geo.latitude, geo.longitude);
 					$scope.map.setCenter(latLng)
 					$scope.map.setHeading(geo.heading)
+					alert('heading: '+geo.heading)
+					js.map.compas((deg)=>{
+						alert('compas: '+deg)
+					})
 					$scope.updateTimer = window.setTimeout(js.map.update, 5000)
 				})
 			},
