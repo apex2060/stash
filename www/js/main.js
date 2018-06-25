@@ -454,6 +454,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 					$scope.locations = r.data.filter(l=>(l.industry==category));
 					var origins = [new google.maps.LatLng(geo.latitude, geo.longitude)];
 					var destinations = $scope.locations.map(loc=>{
+						loc.favorite = ($scope.favorites.indexOf(loc._id) != -1)
 						return new google.maps.LatLng(loc.geo.latitude, loc.geo.longitude)
 					})
 					var dm = new google.maps.DistanceMatrixService();
@@ -542,6 +543,10 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 	var js = $scope.js = {
 		init: function(){
 			js.map.init();
+			$scope.$on('$destroy', ()=>{
+				if($scope.updateTimer)
+					window.clearTimeout($scope.updateTimer)
+			})
 		},
 		hide: function(){
 			$('.overlay').remove();
@@ -573,7 +578,7 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 					alert('code: '    + error.code    + '\n' +
 					'message: ' + error.message + '\n');
 				});
-				window.setInterval(js.map.getPosition, 2000)
+				$scope.updateTimer = window.setInterval(js.map.getPosition, 2000)
 			},
 			// update: function(){
 			// 	navigator.geolocation.getCurrentPosition(function(pos){
