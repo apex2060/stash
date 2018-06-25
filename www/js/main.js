@@ -437,7 +437,6 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 		locations: {
 			init: function(){
 				$scope.favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-				alert(JSON.stringify($scope.favorites));
 				js.locations.update();
 				$scope.$on('$routeChangeStart', function(next, current) { 
 					js.locations.update();
@@ -529,8 +528,7 @@ app.controller('AdventureCtrl', function LocCtrl($scope, $http, $routeParams, co
 	var js = $scope.js = {
 		init: function(){
 			$scope.favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-			alert(JSON.stringify($scope.favorites));
-			
+
 			$http.post(config.host+'/cloud/api-adventures/'+$routeParams.id).then(function(r){
 				$scope.adventure = r.data;
 				$scope.locations = r.data && r.data.locations;
@@ -624,9 +622,10 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 					var latLng = new google.maps.LatLng(geo.latitude, geo.longitude);
 					$scope.map.setCenter(latLng)
 					$scope.map.setHeading(geo.heading)
-					alert('heading: '+geo.heading)
+					// alert('heading: '+geo.heading)
 					js.map.compas((deg)=>{
-						alert('compas: '+deg)
+						var mapDiv = document.querySelector('#map');
+						mapDiv.style.transform = 'rotate('+Math.round(deg)+')';
 					})
 					$scope.updateTimer = window.setTimeout(js.map.update, 5000)
 				})
