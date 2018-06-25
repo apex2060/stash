@@ -437,6 +437,10 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 		locations: {
 			init: function(){
 				$scope.favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+				if(!Array.isArray($scope.favorites)){
+					alert($scope.favorites)
+					$scope.favorites = [];
+				}
 				js.locations.update();
 				$scope.$on('$routeChangeStart', function(next, current) { 
 					js.locations.update();
