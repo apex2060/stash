@@ -436,6 +436,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 		},
 		locations: {
 			init: function(){
+				$scope.favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 				js.locations.update();
 				$scope.$on('$routeChangeStart', function(next, current) { 
 					js.locations.update();
@@ -474,6 +475,14 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 					center: latLng,
 					zoom: 19
 				});
+			},
+			favorite: function(item){
+				item.favorite = !item.favorite;
+				if(item.favorite)
+					$scope.favorites.push(item._id);
+				else
+					$scope.favorites.splice($scope.favorites.findIndex(i=>i==item._id))
+				localStorage.setItem('favorites', JSON.stringify($scope.favorites))
 			}
 		},
 		loc: {
@@ -501,6 +510,15 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 				$http.get(config.host+'/cloud/api-offers/'+$scope.params.id).then(function(r){
 					$scope.offers = r.data;	
 				})
+			},
+			view: function(offer){
+				$scope.offer = offer;
+			},
+			back: function(){
+				if($scope.offer)
+					js.offer.view();
+				else
+					window.location = '#/location/'+$scope.loc._id;
 			}
 		}
 	}
@@ -537,10 +555,10 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 		},
 		map: {
 			init: function(){
-				document.addEventListener("deviceready", js.map.getposition, false);
+				document.addEventListener("deviceready", js.map.getPosition, false);
 				// js.map.update();
 			},
-			getposition: function(){
+			getPosition: function(){
 				navigator.geolocation.getCurrentPosition(function(position) {
 					// alert('Latitude: '          + position.coords.latitude          + '\n' +
 					// 'Longitude: '         + position.coords.longitude         + '\n' +
@@ -555,6 +573,7 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 					alert('code: '    + error.code    + '\n' +
 					'message: ' + error.message + '\n');
 				});
+				window.setInterval(js.map.getPosition, 2000)
 			},
 			// update: function(){
 			// 	navigator.geolocation.getCurrentPosition(function(pos){
@@ -575,9 +594,24 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 					center: latLng,
 					zoom: 17
 				});
-				// js.map.setTilt(45);
+				js.map.setTilt(45);
+				js.map.setHeading(geo.heading);
+				
 				// js.map.current();
 				// js.map.coins(loc);
+			},
+			compas: function(callback){
+				//Compas
+				if (window.DeviceOrientationEvent) {
+					window.addEventListener('deviceorientation', function(eventData) {
+						var compassdir;
+						if(event.webkitCompassHeading)
+							compassdir = event.webkitCompassHeading;  
+						else 
+							compassdir = event.alpha;
+						callback(compassdir)
+					});
+				}
 			},
 			coins: function(loc){
 				var latLng = {lat: loc.geo.latitude, lng: loc.geo.longitude};
