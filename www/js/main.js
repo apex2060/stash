@@ -519,7 +519,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 				if($scope.offer)
 					js.offer.view();
 				else
-					window.location = '#/location/'+$scope.loc._id;
+					window.location = '#/location/'+$scope.params.id;
 				alert(window.location.href)
 			}
 		}
@@ -579,7 +579,6 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 					alert('code: '    + error.code    + '\n' +
 					'message: ' + error.message + '\n');
 				});
-				$scope.updateTimer = window.setInterval(js.map.getPosition, 2000)
 			},
 			// update: function(){
 			// 	navigator.geolocation.getCurrentPosition(function(pos){
@@ -600,11 +599,20 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 					center: latLng,
 					zoom: 17
 				});
-				js.map.setTilt(45);
-				js.map.setHeading(geo.heading);
-				
+				$scope.map.setTilt(45);
+				$scope.map.setHeading(geo.heading);
+				js.map.update();
 				// js.map.current();
 				// js.map.coins(loc);
+			},
+			update: function(){
+				navigator.geolocation.getCurrentPosition(function(position) {
+					var geo = position.coords;
+					var latLng = new google.maps.LatLng(geo.latitude, geo.longitude);
+					$scope.map.setCenter(latLng)
+					$scope.map.setHeading(geo.heading)
+					$scope.updateTimer = window.setTimeout(js.map.update, 5000)
+				})
 			},
 			compas: function(callback){
 				//Compas
