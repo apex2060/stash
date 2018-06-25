@@ -389,6 +389,7 @@ app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, conf
 				var adv = $scope.adventures = r.data;
 				var c = Math.floor(Math.random() * adv.length);
 				$scope.campaign = $scope.adventures[c];
+				alert('adventures: '+$scope.adventures.length);
 			}, function(e){
 				// alert(e)
 			})
