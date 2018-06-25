@@ -520,6 +520,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 					js.offer.view();
 				else
 					window.location = '#/location/'+$scope.loc._id;
+				alert(window.location.href)
 			}
 		}
 	}
