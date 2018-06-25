@@ -389,7 +389,6 @@ app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, conf
 				var adv = $scope.adventures = r.data;
 				var c = Math.floor(Math.random() * adv.length);
 				$scope.campaign = $scope.adventures[c];
-				alert('adventures: '+$scope.adventures.length);
 			}, function(e){
 				// alert(e)
 			})
@@ -614,6 +613,10 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 				});
 				$scope.map.setHeading(geo.heading);
 				js.map.update();
+				js.map.compas((deg)=>{
+					var mapDiv = document.querySelector('#map');
+					mapDiv.style.transform = 'rotate('+Math.round(deg)+'deg)';
+				})
 				// js.map.current();
 				// js.map.coins(loc);
 			},
@@ -623,11 +626,8 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 					var latLng = new google.maps.LatLng(geo.latitude, geo.longitude);
 					$scope.map.setCenter(latLng)
 					$scope.map.setHeading(geo.heading)
-					// alert('heading: '+geo.heading)
-					js.map.compas((deg)=>{
-						var mapDiv = document.querySelector('#map');
-						mapDiv.style.transform = 'rotate('+Math.round(deg)+')';
-					})
+					if(geo.heading)
+						alert('heading: '+geo.heading)
 					$scope.updateTimer = window.setTimeout(js.map.update, 5000)
 				})
 			},
