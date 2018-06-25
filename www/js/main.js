@@ -437,10 +437,7 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 		locations: {
 			init: function(){
 				$scope.favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-				if(!Array.isArray($scope.favorites)){
-					alert($scope.favorites)
-					$scope.favorites = [];
-				}
+				alert(JSON.stringify($scope.favorites));
 				js.locations.update();
 				$scope.$on('$routeChangeStart', function(next, current) { 
 					js.locations.update();
@@ -534,9 +531,15 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 app.controller('AdventureCtrl', function LocCtrl($scope, $http, $routeParams, config){
 	var js = $scope.js = {
 		init: function(){
+			$scope.favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+			alert(JSON.stringify($scope.favorites));
+			
 			$http.post(config.host+'/cloud/api-adventures/'+$routeParams.id).then(function(r){
 				$scope.adventure = r.data;
 				$scope.locations = r.data && r.data.locations;
+				$scope.locations.forEach(loc=>{
+					loc.favorite = ($scope.favorites.indexOf(loc._id) != -1)
+				})
 			})
 		}
 	}
