@@ -477,14 +477,6 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 					center: latLng,
 					zoom: 19
 				});
-			},
-			favorite: function(item){
-				item.favorite = !item.favorite;
-				if(item.favorite)
-					$scope.favorites.push(item._id);
-				else
-					$scope.favorites.splice($scope.favorites.findIndex(i=>i==item._id))
-				localStorage.setItem('favorites', JSON.stringify($scope.favorites))
 			}
 		},
 		loc: {
@@ -500,8 +492,13 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 					$scope.loc = r.data;	
 				})
 			},
-			favorite: function(loc){
-				loc.favorite = !loc.favorite;
+			favorite: function(item){
+				item.favorite = !item.favorite;
+				if(item.favorite)
+					$scope.favorites.push(item._id);
+				else
+					$scope.favorites.splice($scope.favorites.findIndex(i=>i==item._id))
+				localStorage.setItem('favorites', JSON.stringify($scope.favorites))
 			}
 		},
 		offer: {
@@ -541,6 +538,16 @@ app.controller('AdventureCtrl', function LocCtrl($scope, $http, $routeParams, co
 					loc.favorite = ($scope.favorites.indexOf(loc._id) != -1)
 				})
 			})
+		},
+		loc:{
+			favorite: function(item){
+				item.favorite = !item.favorite;
+				if(item.favorite)
+					$scope.favorites.push(item._id);
+				else
+					$scope.favorites.splice($scope.favorites.findIndex(i=>i==item._id))
+				localStorage.setItem('favorites', JSON.stringify($scope.favorites))
+			}
 		}
 	}
 	it.AdventureCtrl = $scope;
