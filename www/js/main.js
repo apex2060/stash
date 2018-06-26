@@ -283,7 +283,7 @@ app.controller('SiteCtrl', function SiteCtrl($rootScope, $scope, $firebaseObject
 				$rootScope.device = device;
 			})
 			$rootScope.account = {
-				coins: 120
+				coins: (localStorage.getItem('coins') || 120)
 			}
 		},
 		register: function(){
@@ -570,10 +570,11 @@ app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routePara
 			// firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
 				$http.post(config.host+'/cloud/api-redeem/'+$routeParams.id, {idToken}).then(response=>{
 					$scope.debug = response.data;
-					$rootScope.account.coins = response.data.coins;
+					$rootScope.account.coins += response.data.coins;
+					localStorage.setItem('coins', $rootScope.account.coins);
 					js.animate();
-				// })
-			})
+				})
+			// })
 		},
 		animate: function(){
 			//animate and then take them to the offers page.
@@ -613,10 +614,10 @@ app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routePara
 				});
 				$scope.map.setHeading(geo.heading);
 				js.map.update();
-				// js.map.compas((deg)=>{
-				// 	var mapDiv = document.querySelector('#map');
-				// 	mapDiv.style.transform = 'rotate('+Math.round(deg)+'deg)';
-				// })
+				js.map.compass((deg)=>{
+					var mapDiv = document.querySelector('#map');
+					mapDiv.style.transform = 'rotate('+Math.round(deg)+'deg)';
+				})
 				js.map.current();
 				js.map.coins(loc);
 			},
@@ -631,7 +632,7 @@ app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routePara
 					$scope.updateTimer = window.setTimeout(js.map.update, 5000)
 				})
 			},
-			compas: function(callback){
+			compass: function(callback){
 				//Compas
 				if (window.DeviceOrientationEvent) {
 					window.addEventListener('deviceorientation', function(eventData) {
