@@ -29,15 +29,11 @@
 		padding:0px;
 		margin: 32px 0px;
 	}
-	.cta a{
-		text-decoration: none;
-		color: #ea2a6c;
-	}
 </style>
 <div ng-controller="LocCtrl" layout="column" ng-init="js.loc.init()">
 	<div class="location">
 		<div style="width: 100%; height: 25vh; overflow: hidden;">
-			<img cl-src="{{loc.img.secure_url}}" transform_w="400" transform_h="200" style="width:100%;">
+			<img cl-src="{{loc.img.img_url}}" transform_w="400" transform_h="200" style="width:100%;">
 			<h3>{{loc.title}}</h3>
 		</div>
 		<div class="slogan" layout-padding>
@@ -48,7 +44,7 @@
 			<hr>
 		</div>
 		<div layout-margin layout-padding>
-			<p class="cta"><b>Phone:</b> <a href="tel:{{loc.phone}}">{{loc.phone}}</a></p>
+			<p><b>Phone:</b> <a href="tel:{{loc.phone}}">{{loc.phone}}</a></p>
 			<md-button class="md-block md-raised md-primary" ng-href="#/offers/{{loc._id}}">View Offers</md-button>
 		</div>
 	</div>
@@ -61,6 +57,6 @@
 	<!--This links to an inline map-->
 	
 	<div class="fabs">
-		<a class="fab" ng-href="#/directions/{{loc._id}}"><i class="fas fa-map"></i></a>
+		<a class="fab" ng-href="#/directions/{{loc._id}}"><i class="fas fa-compass"></i></a>
 	</div>
 </div>

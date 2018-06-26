@@ -282,6 +282,9 @@ app.controller('SiteCtrl', function SiteCtrl($rootScope, $scope, $firebaseObject
 			tools.register().then(function(device){
 				$rootScope.device = device;
 			})
+			$rootScope.account = {
+				coins: 120
+			}
 		},
 		register: function(){
 			var deferred = $q.defer();
@@ -381,10 +384,6 @@ app.controller('SettingCtrl', function SettingCtrl($scope, $http, config){
 app.controller('HomeCtrl', function HomeCtrl($scope, $firebaseArray, $http, config){
 	var js = $scope.js = {
 		init: function(){
-			$scope.account = {
-				coins: 120
-			}
-			
 			$http.get(config.host+'/cloud/api-adventures').then(function(r){
 				var adv = $scope.adventures = r.data;
 				var c = Math.floor(Math.random() * adv.length);
@@ -552,7 +551,7 @@ app.controller('AdventureCtrl', function LocCtrl($scope, $http, $routeParams, co
 	js.init();
 })
 
-app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
+app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routeParams, config){
 	var js = $scope.js = {
 		init: function(){
 			js.map.init();
@@ -568,8 +567,12 @@ app.controller('MapCtrl', function MapCtrl($scope, $http, $routeParams, config){
 			firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
 				$http.post(config.host+'/cloud/api-redeem/'+$routeParams.id, {idToken}).then(response=>{
 					$scope.debug = response.data;
+					$rootScope.account.coins = response.data.coins;
 				})
 			})
+		},
+		animate: function(){
+			//animate and then take them to the offers page.
 		},
 		map: {
 			init: function(){
