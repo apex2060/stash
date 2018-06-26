@@ -568,11 +568,13 @@ app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routePara
 				$http.post(config.host+'/cloud/api-redeem/'+$routeParams.id, {idToken}).then(response=>{
 					$scope.debug = response.data;
 					$rootScope.account.coins = response.data.coins;
+					js.animate();
 				})
 			})
 		},
 		animate: function(){
 			//animate and then take them to the offers page.
+			alert('You just got more coins!')
 		},
 		map: {
 			init: function(){
