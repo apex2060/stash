@@ -564,12 +564,13 @@ app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routePara
 			$('.overlay').remove();
 		},
 		redeem: function(){
-			firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+			var idToken = 'test';
+			// firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
 				$http.post(config.host+'/cloud/api-redeem/'+$routeParams.id, {idToken}).then(response=>{
 					$scope.debug = response.data;
 					$rootScope.account.coins = response.data.coins;
 					js.animate();
-				})
+				// })
 			})
 		},
 		animate: function(){
