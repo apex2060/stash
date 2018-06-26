@@ -487,7 +487,8 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 			update: function(){
 				console.log('update')
 				$http.get(config.host+'/cloud/api-locations/'+$scope.params.id).then(function(r){
-					$scope.loc = r.data;	
+					$scope.loc = r.data;
+					localStorage.setItem('loc', JSON.stringify($scope.loc));
 				})
 			},
 			favorite: function(item){
@@ -559,6 +560,7 @@ app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routePara
 				if($scope.updateTimer)
 					window.clearTimeout($scope.updateTimer)
 			})
+			$scope.location = JSON.parse(localStorage.getItem('loc'));
 		},
 		hide: function(){
 			$('.overlay').remove();
@@ -584,14 +586,6 @@ app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routePara
 			},
 			getPosition: function(){
 				navigator.geolocation.getCurrentPosition(function(position) {
-					// alert('Latitude: '          + position.coords.latitude          + '\n' +
-					// 'Longitude: '         + position.coords.longitude         + '\n' +
-					// 'Altitude: '          + position.coords.altitude          + '\n' +
-					// 'Accuracy: '          + position.coords.accuracy          + '\n' +
-					// 'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-					// 'Heading: '           + position.coords.heading           + '\n' +
-					// 'Speed: '             + position.coords.speed             + '\n' +
-					// 'Timestamp: '         + position.timestamp                + '\n');
 					js.map.load(position.coords, $scope.params.id)
 				}, function(error) {
 					alert('code: '    + error.code    + '\n' +
@@ -605,11 +599,11 @@ app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routePara
 			// },
 			load: function(geo, category){
 				// alert('load')
-				$http.get('https://dashboard.stashmob.co/cloud/mongo/locations?objectId='+$scope.params.id).then(function(r){
-					// alert(JSON.stringify(r.data));
-					$scope.loc = r.data;
-					js.map.display(geo, $scope.loc);
-				})
+				// $http.get('https://dashboard.stashmob.co/cloud/mongo/locations?objectId='+$scope.params.id).then(function(r){
+				// 	// alert(JSON.stringify(r.data));
+				// 	$scope.loc = r.data;
+					js.map.display(geo, $scope.location);
+				// })
 			},
 			display: function(geo, loc){
 				var latLng = new google.maps.LatLng(geo.latitude, geo.longitude);
@@ -619,12 +613,12 @@ app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routePara
 				});
 				$scope.map.setHeading(geo.heading);
 				js.map.update();
-				js.map.compas((deg)=>{
-					var mapDiv = document.querySelector('#map');
-					mapDiv.style.transform = 'rotate('+Math.round(deg)+'deg)';
-				})
-				// js.map.current();
-				// js.map.coins(loc);
+				// js.map.compas((deg)=>{
+				// 	var mapDiv = document.querySelector('#map');
+				// 	mapDiv.style.transform = 'rotate('+Math.round(deg)+'deg)';
+				// })
+				js.map.current();
+				js.map.coins(loc);
 			},
 			update: function(){
 				navigator.geolocation.getCurrentPosition(function(position) {
