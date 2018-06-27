@@ -4,19 +4,21 @@
 		<h3>{{account.coins}} Coins</h3>
 	</div>
 	<md-content>
-		<a class="promotion" ng-href="#/adventure/{{campaign._id}}">
-			<img ng-src="{{campaign.img.secure_url}}">
-			<div class="title">
-				{{campaign.title}}
-			</div>
-		</a>
+		<div style="text-align:center;">
+			<a class="promotion" ng-href="#/adventure/{{campaign._id}}">
+				<img cl-src="{{campaign.img.secure_url}}" transform_w="200" transform_h="200">
+				<div class="title">
+					{{campaign.title}}
+				</div>
+			</a>
+		</div>
 		
 		<p class="ribbon" layout-padding>Spend Your Coins On These Items:</p>
 		<div layout="row" layout-wrap>
 			<div flex="50" ng-repeat="item in market">
 				<div layout-margin md-whiteframe="1">
 					<div>
-						<img ng-src="{{item.img.secure_url}}">
+						<img cl-src="{{item.img.secure_url}}" transform_w="200" transform_h="200">
 						<a href="#/item/{{item.$id}}">{{item.title}}</a>
 					</div>
 				</div>
