@@ -283,7 +283,7 @@ app.controller('SiteCtrl', function SiteCtrl($rootScope, $scope, $firebaseObject
 				$rootScope.device = device;
 			})
 			$rootScope.account = {
-				coins: (localStorage.getItem('coins') || 120)
+				coins: (Number(localStorage.getItem('coins')) || 120)
 			}
 		},
 		register: function(){
@@ -449,8 +449,14 @@ app.controller('LocCtrl', function LocCtrl($scope, $http, config){
 			},
 			load: function(geo, category){
 				$scope.category = category;
+				var local = JSON.parse(localStorage.getItem('local')) || {};
+				$scope.locations = local[category];
+				
 				$http.post(config.host+'/cloud/api-locations', {geo: {latitude: geo.latitude, longitude: geo.longitude},category}).then(function(r){
 					$scope.locations = r.data.filter(l=>(l.industry==category));
+					local[category] = $scope.locations;
+					localStorage.setItem('local', JSON.stringify(local));
+					
 					var origins = [new google.maps.LatLng(geo.latitude, geo.longitude)];
 					var destinations = $scope.locations.map(loc=>{
 						loc.favorite = ($scope.favorites.indexOf(loc._id) != -1)
@@ -570,7 +576,7 @@ app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routePara
 			// firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
 				$http.post(config.host+'/cloud/api-redeem/'+$routeParams.id, {idToken}).then(response=>{
 					$scope.debug = response.data;
-					$rootScope.account.coins += response.data.coins;
+					$rootScope.account.coins += Number(response.data.coins);
 					localStorage.setItem('coins', $rootScope.account.coins);
 					js.animate();
 				})
@@ -614,10 +620,10 @@ app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routePara
 				});
 				$scope.map.setHeading(geo.heading);
 				js.map.update();
-				js.map.compass((deg)=>{
-					var mapDiv = document.querySelector('#map');
-					mapDiv.style.transform = 'rotate('+Math.round(deg)+'deg)';
-				})
+				// js.map.compass((deg)=>{
+				// 	var mapDiv = document.querySelector('#map');
+				// 	mapDiv.style.transform = 'rotate('+Math.round(deg)+'deg)';
+				// })
 				js.map.current();
 				js.map.coins(loc);
 			},
