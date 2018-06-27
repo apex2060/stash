@@ -3,27 +3,29 @@
 		<img src="https://res.cloudinary.com/stashmob-co/image/upload/v1516031622/p2pq0caf0k4yluumrbsp.png" />
 		<h3>{{account.coins}} Coins</h3>
 	</div>
-	<a class="promotion" ng-href="#/adventure/{{campaign._id}}">
-		<img ng-src="{{campaign.img.src}}">
-		<div class="title">
-			{{campaign.title}}
-		</div>
-	</a>
-	
-	<p class="ribbon" layout-padding>Spend Your Coins On These Items:</p>
-	<div layout="row" layout-wrap>
-		<div flex="50" ng-repeat="item in market">
-			<div layout-margin md-whiteframe="1">
-				<div>
-					<img ng-src="{{item.img.secure_url}}">
-					<a href="#/item/{{item.$id}}">{{item.title}}</a>
+	<md-content>
+		<a class="promotion" ng-href="#/adventure/{{campaign._id}}">
+			<img ng-src="{{campaign.img.secure_url}}">
+			<div class="title">
+				{{campaign.title}}
+			</div>
+		</a>
+		
+		<p class="ribbon" layout-padding>Spend Your Coins On These Items:</p>
+		<div layout="row" layout-wrap>
+			<div flex="50" ng-repeat="item in market">
+				<div layout-margin md-whiteframe="1">
+					<div>
+						<img ng-src="{{item.img.secure_url}}">
+						<a href="#/item/{{item.$id}}">{{item.title}}</a>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div layout-padding>
-		<md-button class="" ng-href="#/debug">Debug</md-button>
-	</div>
+		<div layout-padding>
+			<md-button class="md-raised" ng-href="#/debug">Debug</md-button>
+		</div>
+	</md-content>
 	<!--<div class="fabs fabs5" ng-class="{expanded: fabexpand}" ng-show="user">-->
 	<div class="fabs fabs5" ng-class="{expanded: fabexpand}">
 		<a class="fab" ng-click="fabexpand = !fabexpand"><i class="fas fa-bars"></i></a>
