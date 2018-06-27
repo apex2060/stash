@@ -4,7 +4,7 @@
 		<h3>{{account.coins}} Coins</h3>
 	</div>
 	<a class="promotion" ng-href="#/adventure/{{campaign._id}}">
-		<img ng-src="{{campaign.img.secure_url}}">
+		<img ng-src="{{campaign.img.src}}">
 		<div class="title">
 			{{campaign.title}}
 		</div>
@@ -15,13 +15,15 @@
 		<div flex="50" ng-repeat="item in market">
 			<div layout-margin md-whiteframe="1">
 				<div>
-					<img cl-src="{{item.img.secure_url}}" transform_w="200" transform_h="200">
+					<img ng-src="{{item.img.url}}">
 					<a href="#/item/{{item.$id}}">{{item.title}}</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+	<div layout-padding>
+		<md-button class="" ng-href="#/debug">Debug</md-button>
+	</div>
 	<!--<div class="fabs fabs5" ng-class="{expanded: fabexpand}" ng-show="user">-->
 	<div class="fabs fabs5" ng-class="{expanded: fabexpand}">
 		<a class="fab" ng-click="fabexpand = !fabexpand"><i class="fas fa-bars"></i></a>

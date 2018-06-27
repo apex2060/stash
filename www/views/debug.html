@@ -1,0 +1,17 @@
+<div layout="column">
+    <h3>Device</h3>
+	<div>{{device}}</div>
+    <h3>Debug</h3>
+	<div>{{debug}}</div>
+	<!--This links to navigation directions in the google maps app.-->
+	<!--<md-button aria-label="directions" class="main-fab md-fab md-accent md-hue-2 md-button md-ink-ripple" ng-href="https://www.google.com/maps/dir/?api=1&destination={{loc.geo.latitude}},{{loc.geo.longitude}}" target="_blank">-->
+	<!--	<i class="fa fa-compass"></i>-->
+	<!--</md-button>-->
+	
+	<!--This links to an inline map-->
+	<div class="fabs" ng-click="js.tools.back()">
+		<!--<a class="fab">-->
+			<i class="fab fa-chevron-left"></i>
+		<!--</a>-->
+	</div>
+</div>
