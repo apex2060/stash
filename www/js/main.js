@@ -568,16 +568,15 @@ app.controller('MapCtrl', function MapCtrl($rootScope, $scope, $http, $routePara
 		hide: function(){
 			$('.overlay').remove();
 		},
-		redeem: function(){
-			var idToken = 'test';
-			// firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
-				$http.post(config.host+'/cloud/api-redeem/'+$routeParams.id, {idToken}).then(response=>{
+		redeem: function(location){
+			$rootScope.rootTools.register().then(device=>{
+				$http.post(config.host+'/cloud/api-redeem/'+$routeParams.id, {device,location}).then(response=>{
 					$scope.debug = response.data;
 					$rootScope.account.coins = response.data.coins;
 					localStorage.setItem('coins', $rootScope.account.coins);
 					js.animate();
 				})
-			// })
+			})
 		},
 		animate: function(){
 			//animate and then take them to the offers page.
